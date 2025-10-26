@@ -53,6 +53,91 @@ class ManualRegisterRequest(BaseModel):
     name: str
 
 # ============= AUTH ENDPOINTS =============
+
+# Manual Login/Register Endpoints
+@api_router.post("/auth/register")
+async def register_user(request: ManualRegisterRequest):
+    """Register a new user with username/password"""
+    try:
+        # Check if user already exists
+        existing_user = await db.users.find_one({"email": request.username}, {"_id": 0})
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Username already exists")
+        
+        # Hash password
+        password_hash = bcrypt.hashpw(request.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        
+        # Create new user
+        user = User(
+            id=str(uuid.uuid4()),
+            email=request.username,
+            name=request.name,
+            password_hash=password_hash,
+            auth_type="manual"
+        )
+        
+        await db.users.insert_one(user.model_dump())
+        
+        return {"success": True, "message": "User registered successfully"}
+    
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        logging.error(f"Registration error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.post("/auth/login")
+async def login_user(request: ManualLoginRequest, response: Response):
+    """Login with username/password"""
+    try:
+        # Find user
+        user = await db.users.find_one({"email": request.username}, {"_id": 0})
+        
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid username or password")
+        
+        # Verify password
+        if not user.get("password_hash"):
+            raise HTTPException(status_code=401, detail="This account uses OAuth login")
+        
+        if not bcrypt.checkpw(request.password.encode('utf-8'), user["password_hash"].encode('utf-8')):
+            raise HTTPException(status_code=401, detail="Invalid username or password")
+        
+        # Create session
+        session_token = str(uuid.uuid4())
+        expires_at = datetime.now(timezone.utc) + timedelta(days=7)
+        
+        session = Session(
+            session_token=session_token,
+            user_id=user["id"],
+            expires_at=expires_at
+        )
+        
+        # Store in DB
+        session_dict = session.model_dump()
+        session_dict["expires_at"] = session_dict["expires_at"].isoformat()
+        await db.sessions.insert_one(session_dict)
+        
+        # Set httpOnly cookie
+        response.set_cookie(
+            key="session_token",
+            value=session_token,
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=7 * 24 * 60 * 60,
+            path="/"
+        )
+        
+        return {"success": True, "user": {"id": user["id"], "email": user["email"], "name": user["name"]}}
+    
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        logging.error(f"Login error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+# OAuth Endpoints
 @api_router.post("/auth/session")
 async def create_session(session_id: str, response: Response):
     """Process session_id from Emergent OAuth and create backend session"""
