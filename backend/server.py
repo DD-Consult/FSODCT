@@ -52,6 +52,33 @@ class ManualRegisterRequest(BaseModel):
     password: str
     name: str
 
+class LearnerRegistration(BaseModel):
+    name: str
+    email: str
+    cohort: str  # "VET", "First Nations", "Other"
+    phone: Optional[str] = None
+    
+class Learner(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: str
+    cohort: str
+    phone: Optional[str] = None
+    enrolled_modules: List[str] = []
+    completed_modules: List[str] = []
+    current_module: Optional[str] = None
+    progress_percentage: int = 0
+    registration_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    last_login: Optional[datetime] = None
+    
+class ModuleProgress(BaseModel):
+    learner_id: str
+    module_id: str
+    progress: int  # 0-100
+    completed: bool = False
+    last_accessed: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 # ============= AUTH ENDPOINTS =============
 
 # Manual Login/Register Endpoints
