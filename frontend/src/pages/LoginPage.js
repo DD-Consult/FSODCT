@@ -51,6 +51,46 @@ const LoginPage = ({ setIsAuthenticated }) => {
     window.location.href = authUrl;
   };
 
+  const handleManualLogin = async (e) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    try {
+      const response = await axios.post(`${API}/auth/login`, {
+        username: loginForm.username,
+        password: loginForm.password
+      });
+      
+      toast.success("Login successful!");
+      setIsAuthenticated(true);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error(error.response?.data?.detail || "Login failed. Please check your credentials.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    try {
+      await axios.post(`${API}/auth/register`, {
+        username: registerForm.username,
+        password: registerForm.password,
+        name: registerForm.name
+      });
+      
+      toast.success("Registration successful! Please login.");
+      setRegisterForm({ username: "", password: "", name: "" });
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error(error.response?.data?.detail || "Registration failed. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   if (isProcessing) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
