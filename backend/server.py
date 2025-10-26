@@ -270,6 +270,244 @@ async def logout(response: Response, session_token: Optional[str] = Cookie(None)
     response.delete_cookie(key="session_token", path="/")
     return {"success": True}
 
+# ============= LEARNER PORTAL ENDPOINTS =============
+
+@api_router.post("/learners/register")
+async def register_learner(learner_data: LearnerRegistration):
+    """Register a new learner for training"""
+    try:
+        # Check if learner already exists
+        existing = await db.learners.find_one({"email": learner_data.email}, {"_id": 0})
+        if existing:
+            raise HTTPException(status_code=400, detail="Email already registered")
+        
+        # Create learner
+        learner = Learner(
+            name=learner_data.name,
+            email=learner_data.email,
+            cohort=learner_data.cohort,
+            phone=learner_data.phone,
+            enrolled_modules=["module1", "module2", "module3"],  # Auto-enroll in all modules
+            current_module="module1"
+        )
+        
+        await db.learners.insert_one(learner.model_dump())
+        
+        # Create a simple session for learner
+        session_token = str(uuid.uuid4())
+        expires_at = datetime.now(timezone.utc) + timedelta(days=30)
+        
+        learner_session = {
+            "session_token": session_token,
+            "learner_id": learner.id,
+            "expires_at": expires_at.isoformat(),
+            "type": "learner"
+        }
+        await db.learner_sessions.insert_one(learner_session)
+        
+        return {
+            "success": True,
+            "learner_id": learner.id,
+            "session_token": session_token,
+            "message": "Registration successful! Welcome to FSO Digital Capability Training."
+        }
+    
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        logging.error(f"Learner registration error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.post("/learners/login")
+async def learner_login(email: str):
+    """Simple learner login with email"""
+    try:
+        learner = await db.learners.find_one({"email": email}, {"_id": 0})
+        if not learner:
+            raise HTTPException(status_code=404, detail="Learner not found. Please register first.")
+        
+        # Create session
+        session_token = str(uuid.uuid4())
+        expires_at = datetime.now(timezone.utc) + timedelta(days=30)
+        
+        learner_session = {
+            "session_token": session_token,
+            "learner_id": learner["id"],
+            "expires_at": expires_at.isoformat(),
+            "type": "learner"
+        }
+        await db.learner_sessions.insert_one(learner_session)
+        
+        # Update last login
+        await db.learners.update_one(
+            {"id": learner["id"]},
+            {"$set": {"last_login": datetime.now(timezone.utc).isoformat()}}
+        )
+        
+        return {
+            "success": True,
+            "learner": learner,
+            "session_token": session_token
+        }
+    
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        logging.error(f"Learner login error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/learners/dashboard/{learner_id}")
+async def get_learner_dashboard(learner_id: str):
+    """Get learner dashboard data"""
+    try:
+        learner = await db.learners.find_one({"id": learner_id}, {"_id": 0})
+        if not learner:
+            raise HTTPException(status_code=404, detail="Learner not found")
+        
+        # Mock modules data
+        modules = [
+            {
+                "id": "module1",
+                "title": "Module 1: Introduction to Digital Skills",
+                "description": "Learn the fundamentals of digital literacy and online safety",
+                "duration": "2 weeks",
+                "difficulty": "Beginner",
+                "status": "in_progress" if learner.get("current_module") == "module1" else ("completed" if "module1" in learner.get("completed_modules", []) else "locked"),
+                "progress": 65 if learner.get("current_module") == "module1" else (100 if "module1" in learner.get("completed_modules", []) else 0),
+                "lessons": 8,
+                "completed_lessons": 5 if learner.get("current_module") == "module1" else 0
+            },
+            {
+                "id": "module2",
+                "title": "Module 2: AI Queries & Search Techniques",
+                "description": "Master AI-powered search and information retrieval",
+                "duration": "3 weeks",
+                "difficulty": "Intermediate",
+                "status": "available" if "module1" in learner.get("completed_modules", []) else "locked",
+                "progress": 0,
+                "lessons": 12,
+                "completed_lessons": 0
+            },
+            {
+                "id": "module3",
+                "title": "Module 3: Cybersecurity Essentials",
+                "description": "Protect yourself and your data online",
+                "duration": "3 weeks",
+                "difficulty": "Intermediate",
+                "status": "locked",
+                "progress": 0,
+                "lessons": 10,
+                "completed_lessons": 0
+            }
+        ]
+        
+        # Calculate overall progress
+        total_lessons = sum(m["lessons"] for m in modules)
+        completed_lessons = sum(m["completed_lessons"] for m in modules)
+        overall_progress = int((completed_lessons / total_lessons) * 100)
+        
+        return {
+            "learner": learner,
+            "modules": modules,
+            "overall_progress": overall_progress,
+            "total_modules": len(modules),
+            "completed_modules": len(learner.get("completed_modules", [])),
+            "current_streak": 7,
+            "total_time_spent": "12.5 hours"
+        }
+    
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        logging.error(f"Dashboard error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/learners/module/{module_id}")
+async def get_module_content(module_id: str):
+    """Get detailed module content"""
+    modules_content = {
+        "module1": {
+            "id": "module1",
+            "title": "Module 1: Introduction to Digital Skills",
+            "description": "Learn the fundamentals of digital literacy and online safety",
+            "duration": "2 weeks",
+            "difficulty": "Beginner",
+            "overview": "This module covers essential digital skills including computer basics, internet navigation, email communication, and online safety practices.",
+            "lessons": [
+                {"id": 1, "title": "Getting Started with Computers", "duration": "45 min", "type": "video", "completed": True},
+                {"id": 2, "title": "Internet Basics", "duration": "30 min", "type": "video", "completed": True},
+                {"id": 3, "title": "Email Communication", "duration": "40 min", "type": "interactive", "completed": True},
+                {"id": 4, "title": "Online Safety Fundamentals", "duration": "35 min", "type": "video", "completed": True},
+                {"id": 5, "title": "Password Security", "duration": "25 min", "type": "interactive", "completed": True},
+                {"id": 6, "title": "Social Media Basics", "duration": "30 min", "type": "video", "completed": False},
+                {"id": 7, "title": "Digital Citizenship", "duration": "40 min", "type": "reading", "completed": False},
+                {"id": 8, "title": "Module Assessment", "duration": "20 min", "type": "quiz", "completed": False}
+            ],
+            "resources": [
+                {"title": "Digital Skills Handbook", "type": "PDF", "size": "2.5 MB"},
+                {"title": "Quick Reference Guide", "type": "PDF", "size": "1.2 MB"},
+                {"title": "Practice Exercises", "type": "Interactive", "size": "N/A"}
+            ]
+        },
+        "module2": {
+            "id": "module2",
+            "title": "Module 2: AI Queries & Search Techniques",
+            "description": "Master AI-powered search and information retrieval",
+            "duration": "3 weeks",
+            "difficulty": "Intermediate",
+            "overview": "Learn how to effectively use AI tools and advanced search techniques to find information quickly and accurately.",
+            "lessons": [
+                {"id": 1, "title": "Introduction to AI Search", "duration": "50 min", "type": "video", "completed": False},
+                {"id": 2, "title": "Search Operators & Techniques", "duration": "45 min", "type": "interactive", "completed": False},
+                {"id": 3, "title": "AI Chatbots Basics", "duration": "40 min", "type": "video", "completed": False},
+                {"id": 4, "title": "Effective Query Formulation", "duration": "35 min", "type": "interactive", "completed": False},
+                {"id": 5, "title": "Information Verification", "duration": "45 min", "type": "video", "completed": False},
+                {"id": 6, "title": "Advanced AI Tools", "duration": "50 min", "type": "interactive", "completed": False},
+                {"id": 7, "title": "Practical Applications", "duration": "40 min", "type": "video", "completed": False},
+                {"id": 8, "title": "Case Studies", "duration": "30 min", "type": "reading", "completed": False},
+                {"id": 9, "title": "Hands-on Practice", "duration": "60 min", "type": "interactive", "completed": False},
+                {"id": 10, "title": "Ethics in AI Usage", "duration": "35 min", "type": "video", "completed": False},
+                {"id": 11, "title": "Final Project", "duration": "90 min", "type": "project", "completed": False},
+                {"id": 12, "title": "Module Assessment", "duration": "30 min", "type": "quiz", "completed": False}
+            ],
+            "resources": [
+                {"title": "AI Search Guide", "type": "PDF", "size": "3.1 MB"},
+                {"title": "Search Operator Cheat Sheet", "type": "PDF", "size": "800 KB"},
+                {"title": "AI Tools Directory", "type": "Interactive", "size": "N/A"}
+            ]
+        },
+        "module3": {
+            "id": "module3",
+            "title": "Module 3: Cybersecurity Essentials",
+            "description": "Protect yourself and your data online",
+            "duration": "3 weeks",
+            "difficulty": "Intermediate",
+            "overview": "Understand cybersecurity threats and learn practical strategies to protect your digital life.",
+            "lessons": [
+                {"id": 1, "title": "Cybersecurity Fundamentals", "duration": "45 min", "type": "video", "completed": False},
+                {"id": 2, "title": "Common Threats & Scams", "duration": "40 min", "type": "interactive", "completed": False},
+                {"id": 3, "title": "Secure Passwords & Authentication", "duration": "35 min", "type": "video", "completed": False},
+                {"id": 4, "title": "Phishing Detection", "duration": "30 min", "type": "interactive", "completed": False},
+                {"id": 5, "title": "Safe Browsing Practices", "duration": "40 min", "type": "video", "completed": False},
+                {"id": 6, "title": "Data Privacy", "duration": "45 min", "type": "reading", "completed": False},
+                {"id": 7, "title": "Mobile Security", "duration": "35 min", "type": "video", "completed": False},
+                {"id": 8, "title": "Backup & Recovery", "duration": "40 min", "type": "interactive", "completed": False},
+                {"id": 9, "title": "Security Tools", "duration": "50 min", "type": "video", "completed": False},
+                {"id": 10, "title": "Module Assessment", "duration": "25 min", "type": "quiz", "completed": False}
+            ],
+            "resources": [
+                {"title": "Cybersecurity Handbook", "type": "PDF", "size": "4.2 MB"},
+                {"title": "Security Checklist", "type": "PDF", "size": "1.5 MB"},
+                {"title": "Security Tools Guide", "type": "Interactive", "size": "N/A"}
+            ]
+        }
+    }
+    
+    if module_id not in modules_content:
+        raise HTTPException(status_code=404, detail="Module not found")
+    
+    return modules_content[module_id]
+
 # ============= DASHBOARD DATA ENDPOINTS =============
 
 @api_router.get("/dashboard/overview")
