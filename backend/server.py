@@ -229,7 +229,10 @@ async def get_current_user(session_token: Optional[str] = Cookie(None)):
 @api_router.get("/auth/me")
 async def get_me(current_user: User = Depends(get_current_user)):
     """Get current user info"""
-    return current_user
+    # Remove sensitive data before returning
+    user_data = current_user.model_dump()
+    user_data.pop("password_hash", None)
+    return user_data
 
 @api_router.post("/auth/logout")
 async def logout(response: Response, session_token: Optional[str] = Cookie(None)):
