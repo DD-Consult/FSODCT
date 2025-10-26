@@ -3,11 +3,15 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Toaster } from "sonner";
+import PortalSelection from "@/pages/PortalSelection";
 import LoginPage from "@/pages/LoginPage";
 import DashboardLayout from "@/components/DashboardLayout";
 import Overview from "@/pages/Overview";
 import CohortAnalytics from "@/pages/CohortAnalytics";
 import WeeklyHuddle from "@/pages/WeeklyHuddle";
+import LearnerRegistration from "@/pages/LearnerRegistration";
+import LearnerDashboard from "@/pages/LearnerDashboard";
+import LearnerModule from "@/pages/LearnerModule";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -44,6 +48,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          {/* Portal Selection Landing Page */}
+          <Route path="/" element={<PortalSelection />} />
+          
+          {/* PMO Team Portal Routes */}
           <Route
             path="/login"
             element={
@@ -68,12 +76,11 @@ function App() {
             <Route path="cohort/:cohortId" element={<CohortAnalytics />} />
             <Route path="weekly-huddle" element={<WeeklyHuddle />} />
           </Route>
-          <Route
-            path="/"
-            element={
-              <Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />
-            }
-          />
+
+          {/* Learner Portal Routes */}
+          <Route path="/learner-portal" element={<LearnerRegistration />} />
+          <Route path="/learner-dashboard" element={<LearnerDashboard />} />
+          <Route path="/learner-module/:moduleId" element={<LearnerModule />} />
         </Routes>
       </BrowserRouter>
       <Toaster position="top-right" richColors />
