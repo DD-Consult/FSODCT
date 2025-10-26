@@ -34,12 +34,23 @@ class User(BaseModel):
     email: str
     name: str
     picture: Optional[str] = None
+    password_hash: Optional[str] = None  # For manual login users
+    auth_type: str = "oauth"  # "oauth" or "manual"
 
 class Session(BaseModel):
     model_config = ConfigDict(extra="ignore")
     session_token: str
     user_id: str
     expires_at: datetime
+
+class ManualLoginRequest(BaseModel):
+    username: str
+    password: str
+
+class ManualRegisterRequest(BaseModel):
+    username: str
+    password: str
+    name: str
 
 # ============= AUTH ENDPOINTS =============
 @api_router.post("/auth/session")
