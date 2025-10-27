@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, BookOpen, Clock, Award, LogOut, CheckCircle2, Lock, PlayCircle, Trophy, Target } from "lucide-react";
+import { GraduationCap, BookOpen, Clock, Award, LogOut, CheckCircle2, Lock, PlayCircle, Trophy, Target, Monitor, Users } from "lucide-react";
+import LearnerChatbot from "@/components/LearnerChatbot";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
