@@ -129,20 +129,7 @@ const Overview = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <Joyride
-        steps={steps}
-        run={runTour}
-        continuous
-        showProgress
-        showSkipButton
-        callback={handleJoyrideCallback}
-        styles={{
-          options: {
-            primaryColor: "#3b82f6",
-            zIndex: 10000,
-          },
-        }}
-      />
+      <DemoTour steps={steps} isActive={isActive} onComplete={onComplete} />
       
       {/* Header */}
       <div>
