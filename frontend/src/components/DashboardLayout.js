@@ -92,8 +92,17 @@ const DashboardLayout = ({ user, setIsAuthenticated }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
-        <div className="p-8">
+      <main className="flex-1 overflow-y-auto relative">
+        {/* Logo - Top Right Corner of Main Area */}
+        <div className="absolute top-4 right-8 z-20">
+          <img 
+            src="/dd-consulting-logo.png" 
+            alt="DD Consulting" 
+            className="h-14 w-auto opacity-80 hover:opacity-100 transition-opacity"
+          />
+        </div>
+
+        <div className="p-8 pt-20">
           <Outlet />
         </div>
       </main>
