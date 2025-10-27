@@ -137,7 +137,7 @@ const LearnerDashboard = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8" data-tour="stats-cards">
           <Card className="hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
