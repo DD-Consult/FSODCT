@@ -108,6 +108,18 @@ const PortalSelection = () => {
                   Access Learner Portal
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
+                <Button 
+                  variant="outline"
+                  className="w-full h-10 mt-2 border-2 border-green-600 text-green-600 hover:bg-green-50 font-medium"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/learner-portal?demo=learner");
+                  }}
+                  data-testid="learner-demo-button"
+                >
+                  <PlayCircle className="mr-2" size={18} />
+                  Try Demo Tour
+                </Button>
               </div>
             </CardContent>
           </Card>
