@@ -334,10 +334,10 @@ const Overview = () => {
                     <Users className="mx-auto mb-2 text-blue-600" size={24} />
                     <p className="text-sm text-slate-600">Active This Week</p>
                     <p className="text-2xl font-bold text-slate-800">{data?.weekly_trends?.[6]?.active_learners || 765}</p>
-                    <p className="text-xs text-slate-500 mt-1">
-                      <TrendingDown className="inline mr-1" size={12} />
-                      -8 from last week
-                    </p>
+                    <div className="text-xs text-slate-500 mt-1 flex items-center justify-center gap-1">
+                      <TrendingDown size={12} />
+                      <span>-8 from last week</span>
+                    </div>
                   </CardContent>
                 </Card>
                 <Card className="bg-green-50 border-green-200">
