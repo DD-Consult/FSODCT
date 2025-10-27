@@ -154,7 +154,7 @@ const Overview = () => {
       </div>
 
       {/* Project Vitals */}
-      <Card className="hover-lift">
+      <Card className="hover-lift" data-tour="project-vitals">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center gap-2">
             <TrendingUp className="text-blue-600" size={20} />
