@@ -103,7 +103,25 @@ const LoginPage = ({ setIsAuthenticated }) => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 relative">
+      {/* Logo - Top Left: Darevolution */}
+      <div className="absolute top-6 left-6 z-10">
+        <img 
+          src="/darevolution-logo.png" 
+          alt="Darevolution" 
+          className="h-14 w-auto opacity-90 hover:opacity-100 transition-opacity"
+        />
+      </div>
+
+      {/* Logo - Top Right: DD Consulting */}
+      <div className="absolute top-6 right-6 z-10">
+        <img 
+          src="/dd-consulting-logo.png" 
+          alt="DD Consulting" 
+          className="h-14 w-auto opacity-90 hover:opacity-100 transition-opacity"
+        />
+      </div>
+
       <div className="w-full max-w-md">
         <div className="glass-card rounded-2xl p-8 shadow-2xl">
           {/* Logo/Branding */}
