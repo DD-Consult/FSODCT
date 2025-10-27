@@ -345,10 +345,10 @@ const Overview = () => {
                     <Target className="mx-auto mb-2 text-green-600" size={24} />
                     <p className="text-sm text-slate-600">Engagement Rate</p>
                     <p className="text-2xl font-bold text-slate-800">{data?.weekly_trends?.[6]?.engagement || 80}%</p>
-                    <p className="text-xs text-slate-500 mt-1">
-                      <TrendingUp className="inline mr-1" size={12} />
-                      +2% from last week
-                    </p>
+                    <div className="text-xs text-slate-500 mt-1 flex items-center justify-center gap-1">
+                      <TrendingUp size={12} />
+                      <span>+2% from last week</span>
+                    </div>
                   </CardContent>
                 </Card>
                 <Card className="bg-purple-50 border-purple-200">
