@@ -245,6 +245,136 @@ const CohortAnalytics = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Weekly Performance Trends */}
+      <Card className="hover-lift">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <TrendingUp size={20} className="text-blue-600" />
+            Weekly Performance Trends
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={data?.weekly_performance}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis yAxisId="left" />
+              <YAxis yAxisId="right" orientation="right" />
+              <Tooltip />
+              <Line yAxisId="left" type="monotone" dataKey="active" stroke="#3b82f6" strokeWidth={2} name="Active Learners" />
+              <Line yAxisId="right" type="monotone" dataKey="completed_lessons" stroke="#10b981" strokeWidth={2} name="Completed Lessons" />
+            </LineChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+
+      {/* Engagement Heatmap */}
+      <Card className="hover-lift">
+        <CardHeader>
+          <CardTitle>Learner Activity Heatmap (by Day & Time)</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b">
+                  <th className="text-left py-2 px-3 text-sm font-semibold text-slate-700">Day</th>
+                  <th className="text-center py-2 px-3 text-sm font-semibold text-slate-700">Morning</th>
+                  <th className="text-center py-2 px-3 text-sm font-semibold text-slate-700">Afternoon</th>
+                  <th className="text-center py-2 px-3 text-sm font-semibold text-slate-700">Evening</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.engagement_heatmap?.map((day, index) => (
+                  <tr key={index} className="border-b hover:bg-slate-50">
+                    <td className="py-3 px-3 text-sm font-medium text-slate-800">{day.day}</td>
+                    <td className="py-3 px-3">
+                      <div className="text-center">
+                        <div 
+                          className="inline-block px-4 py-2 rounded text-sm font-semibold"
+                          style={{
+                            backgroundColor: `rgba(59, 130, 246, ${day.morning / 100})`,
+                            color: day.morning > 60 ? 'white' : '#1e293b'
+                          }}
+                        >
+                          {day.morning}%
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-3">
+                      <div className="text-center">
+                        <div 
+                          className="inline-block px-4 py-2 rounded text-sm font-semibold"
+                          style={{
+                            backgroundColor: `rgba(16, 185, 129, ${day.afternoon / 100})`,
+                            color: day.afternoon > 60 ? 'white' : '#1e293b'
+                          }}
+                        >
+                          {day.afternoon}%
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-3">
+                      <div className="text-center">
+                        <div 
+                          className="inline-block px-4 py-2 rounded text-sm font-semibold"
+                          style={{
+                            backgroundColor: `rgba(139, 92, 246, ${day.evening / 100})`,
+                            color: day.evening > 60 ? 'white' : '#1e293b'
+                          }}
+                        >
+                          {day.evening}%
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-4 text-sm text-slate-600">
+            <p><strong>Key Insight:</strong> Peak engagement occurs on weekday afternoons (82-90%). Weekend engagement significantly lower (40-55%).</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Trainer Interaction Metrics */}
+      <Card className="hover-lift">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <MessageSquare size={20} className="text-green-600" />
+            Trainer Interaction Metrics
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={data?.trainer_interactions}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="emails" fill="#3b82f6" name="Emails" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="calls" fill="#10b981" name="Calls" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="messages" fill="#8b5cf6" name="Messages" radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+          <div className="mt-4 flex justify-center gap-6 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-blue-600 rounded"></div>
+              <span className="text-slate-700">Emails</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-green-600 rounded"></div>
+              <span className="text-slate-700">Calls</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-purple-600 rounded"></div>
+              <span className="text-slate-700">Messages</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
