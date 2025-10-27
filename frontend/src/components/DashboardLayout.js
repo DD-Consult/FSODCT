@@ -34,9 +34,18 @@ const DashboardLayout = ({ user, setIsAuthenticated }) => {
   return (
     <div className="flex h-screen bg-slate-50">
       {/* Sidebar */}
-      <aside className="w-72 bg-slate-800 text-white flex flex-col">
+      <aside className="w-72 bg-slate-800 text-white flex flex-col relative">
+        {/* Logo - Top Left Corner of Sidebar */}
+        <div className="absolute top-2 left-2 z-20">
+          <img 
+            src="/darevolution-logo.png" 
+            alt="Darevolution" 
+            className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
+          />
+        </div>
+
         {/* Logo/Branding */}
-        <div className="p-6 border-b border-slate-700">
+        <div className="p-6 border-b border-slate-700 pt-16">
           <h1 className="text-xl font-bold mb-1">FSO Digital Capability Trial</h1>
           <p className="text-xs text-slate-400">Powered by DD Consulting</p>
         </div>
