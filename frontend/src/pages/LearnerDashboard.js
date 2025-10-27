@@ -285,7 +285,7 @@ const LearnerDashboard = () => {
         </div>
 
         {/* Cohort Info */}
-        <Card className="mt-8 border-2 border-green-200 bg-green-50">
+        <Card className="mt-8 border-2 border-green-200 bg-green-50" data-tour="cohort-badge">
           <CardContent className="p-6">
             <div className="flex items-center gap-3">
               <Award size={24} className="text-green-600" />
