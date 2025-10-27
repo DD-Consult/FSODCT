@@ -61,3 +61,7 @@ yarn-error.log*
 # Netlify
 .netlify/
 frontend/node_modules/.cache/default-development/10.pack
+-e 
+# Environment files
+*.env
+*.env.*
