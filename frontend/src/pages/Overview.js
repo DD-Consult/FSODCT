@@ -255,7 +255,7 @@ const Overview = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Risk Heatmap */}
-        <Card className="hover-lift">
+        <Card className="hover-lift" data-tour="risk-heatmap">
           <CardHeader>
             <CardTitle>Active Risk Heatmap</CardTitle>
           </CardHeader>
