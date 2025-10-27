@@ -56,6 +56,14 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeIn 0.3s ease-out;
 }
 
+/* Hide Emergent Badge */
+#emergent-badge {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* Glass morphism effect */
 .glass-card {
   background: rgba(255, 255, 255, 0.9);
