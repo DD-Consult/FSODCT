@@ -273,15 +273,28 @@ const LearnerDashboard = () => {
         {/* Cohort Info */}
         <Card className="mt-8 border-2 border-green-200 bg-green-50" data-tour="cohort-badge">
           <CardContent className="p-6">
-            <div className="flex items-center gap-3">
-              <Award size={24} className="text-green-600" />
-              <div>
-                <p className="text-sm text-slate-600">You are enrolled in:</p>
-                <p className="text-lg font-bold text-slate-800">
-                  {data?.learner?.cohort === "VET" && "Cohort 1 - VET (Vocational Education)"}
-                  {data?.learner?.cohort === "First Nations" && "Cohort 2 - First Nations"}
-                  {data?.learner?.cohort === "Other" && "Cohort 3 - Other"}
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center gap-3">
+                <Award size={24} className="text-green-600" />
+                <div>
+                  <p className="text-sm text-slate-600">You are enrolled in:</p>
+                  <p className="text-lg font-bold text-slate-800">
+                    {data?.learner?.cohort === "VET" && "Cohort 1 - VET (Vocational Education)"}
+                    {data?.learner?.cohort === "First Nations" && "Cohort 2 - First Nations"}
+                    {data?.learner?.cohort === "Other" && "Cohort 3 - Other"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                {data?.learner?.class_type === "Digital" && <Monitor size={24} className="text-blue-600" />}
+                {data?.learner?.class_type === "Face-to-Face" && <Users size={24} className="text-purple-600" />}
+                {data?.learner?.class_type === "Both" && <Monitor size={24} className="text-indigo-600" />}
+                <div>
+                  <p className="text-sm text-slate-600">Class Type:</p>
+                  <p className="text-lg font-bold text-slate-800">
+                    {data?.learner?.class_type || "Digital"}
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>
