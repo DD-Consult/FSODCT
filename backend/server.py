@@ -565,47 +565,101 @@ async def get_cohort_analytics(cohort_id: int, current_user: User = Depends(get_
         3: "Cohort 3 - Other Cohorts"
     }
     
+    # Different data for each cohort to make it realistic
     cohort_data = {
-        1: {
+        1: {  # VET Cohort
             "recruited": 150,
             "signed_up": 148,
             "onboarded": 145,
             "module1": 142,
             "module2": 138,
-            "module3_in_progress": 135
+            "module3_in_progress": 135,
+            "sentiment_words": [
+                {"text": "practical", "value": 88},
+                {"text": "relevant", "value": 82},
+                {"text": "helpful", "value": 75},
+                {"text": "clear", "value": 70},
+                {"text": "engaging", "value": 65},
+                {"text": "hands-on", "value": 58}
+            ],
+            "sentiment_timeline": [
+                {"week": "Week 1", "sentiment": 82},
+                {"week": "Week 2", "sentiment": 85},
+                {"week": "Week 3", "sentiment": 83},
+                {"week": "Week 4", "sentiment": 86},
+                {"week": "Week 5", "sentiment": 84},
+                {"week": "Week 6", "sentiment": 87},
+                {"week": "Week 7", "sentiment": 85}
+            ],
+            "at_risk": [
+                {"id": "C1-2015", "last_login": "5 days ago", "engagement": "Low", "sentiment": "Neutral", "action": "Email Sent"},
+                {"id": "C1-2033", "last_login": "4 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"}
+            ],
+            "content_engagement": [
+                {"module": "Module 1 (Intro)", "engagement": 94, "difficulty": 25, "color": "#10b981"},
+                {"module": "Module 2 (AI Queries)", "engagement": 85, "difficulty": 60, "color": "#10b981"},
+                {"module": "Module 3 (Cyber)", "engagement": 88, "difficulty": 55, "color": "#10b981"}
+            ],
+            "weekly_performance": [
+                {"week": "Week 1", "active": 145, "completed_lessons": 420},
+                {"week": "Week 2", "active": 143, "completed_lessons": 380},
+                {"week": "Week 3", "active": 142, "completed_lessons": 410},
+                {"week": "Week 4", "active": 140, "completed_lessons": 395},
+                {"week": "Week 5", "active": 138, "completed_lessons": 405},
+                {"week": "Week 6", "active": 137, "completed_lessons": 425},
+                {"week": "Week 7", "active": 135, "completed_lessons": 390}
+            ]
         },
-        2: {
+        2: {  # First Nations Cohort
             "recruited": 100,
             "signed_up": 99,
             "onboarded": 97,
             "module1": 95,
             "module2": 92,
-            "module3_in_progress": 90
+            "module3_in_progress": 90,
+            "sentiment_words": [
+                {"text": "cultural", "value": 92},
+                {"text": "relevant", "value": 85},
+                {"text": "inclusive", "value": 78},
+                {"text": "respectful", "value": 72},
+                {"text": "supportive", "value": 68},
+                {"text": "community", "value": 62}
+            ],
+            "sentiment_timeline": [
+                {"week": "Week 1", "sentiment": 88},
+                {"week": "Week 2", "sentiment": 90},
+                {"week": "Week 3", "sentiment": 89},
+                {"week": "Week 4", "sentiment": 91},
+                {"week": "Week 5", "sentiment": 87},
+                {"week": "Week 6", "sentiment": 89},
+                {"week": "Week 7", "sentiment": 90}
+            ],
+            "at_risk": [
+                {"id": "C2-3012", "last_login": "3 days ago", "engagement": "Medium", "sentiment": "Neutral", "action": "Cultural Liaison Assigned"}
+            ],
+            "content_engagement": [
+                {"module": "Module 1 (Intro)", "engagement": 96, "difficulty": 22, "color": "#10b981"},
+                {"module": "Module 2 (AI Queries)", "engagement": 88, "difficulty": 58, "color": "#10b981"},
+                {"module": "Module 3 (Cyber)", "engagement": 92, "difficulty": 50, "color": "#10b981"}
+            ],
+            "weekly_performance": [
+                {"week": "Week 1", "active": 97, "completed_lessons": 285},
+                {"week": "Week 2", "active": 96, "completed_lessons": 270},
+                {"week": "Week 3", "active": 95, "completed_lessons": 280},
+                {"week": "Week 4", "active": 94, "completed_lessons": 275},
+                {"week": "Week 5", "active": 92, "completed_lessons": 265},
+                {"week": "Week 6", "active": 91, "completed_lessons": 285},
+                {"week": "Week 7", "active": 90, "completed_lessons": 270}
+            ]
         },
-        3: {
+        3: {  # Other Cohort
             "recruited": 600,
             "signed_up": 598,
             "onboarded": 590,
             "module1": 580,
             "module2": 550,
-            "module3_in_progress": 540
-        }
-    }
-    
-    data = cohort_data.get(cohort_id, cohort_data[3])
-    
-    return {
-        "cohort_name": cohort_names.get(cohort_id, "Cohort 3 - Other Cohorts"),
-        "learner_journey": [
-            {"stage": "Recruited", "count": data["recruited"]},
-            {"stage": "Signed Up", "count": data["signed_up"]},
-            {"stage": "Onboarded (Cyber-Safe)", "count": data["onboarded"]},
-            {"stage": "Module 1", "count": data["module1"]},
-            {"stage": "Module 2", "count": data["module2"]},
-            {"stage": "Module 3 (In Progress)", "count": data["module3_in_progress"]}
-        ],
-        "sentiment_analysis": {
-            "word_cloud": [
+            "module3_in_progress": 540,
+            "sentiment_words": [
                 {"text": "confusing", "value": 85},
                 {"text": "Module 2", "value": 78},
                 {"text": "AI queries", "value": 72},
@@ -621,19 +675,68 @@ async def get_cohort_analytics(cohort_id: int, current_user: User = Depends(get_
                 {"week": "Week 5", "sentiment": 58},
                 {"week": "Week 6", "sentiment": 62},
                 {"week": "Week 7", "sentiment": 68}
+            ],
+            "at_risk": [
+                {"id": "C3-4015", "last_login": "4 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"},
+                {"id": "C3-4022", "last_login": "3 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"},
+                {"id": "C3-4051", "last_login": "5 days ago", "engagement": "Very Low", "sentiment": "N/A", "action": "Escalate to Trainer"},
+                {"id": "C3-4088", "last_login": "6 days ago", "engagement": "Very Low", "sentiment": "Negative", "action": "Escalate to Trainer"},
+                {"id": "C3-4102", "last_login": "2 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"}
+            ],
+            "content_engagement": [
+                {"module": "Module 1 (Intro)", "engagement": 92, "difficulty": 20, "color": "#10b981"},
+                {"module": "Module 2 (AI Queries)", "engagement": 58, "difficulty": 85, "color": "#ef4444"},
+                {"module": "Module 3 (Cyber)", "engagement": 78, "difficulty": 55, "color": "#f59e0b"}
+            ],
+            "weekly_performance": [
+                {"week": "Week 1", "active": 590, "completed_lessons": 1850},
+                {"week": "Week 2", "active": 585, "completed_lessons": 1720},
+                {"week": "Week 3", "active": 580, "completed_lessons": 1680},
+                {"week": "Week 4", "active": 570, "completed_lessons": 1590},
+                {"week": "Week 5", "active": 550, "completed_lessons": 1420},
+                {"week": "Week 6", "active": 545, "completed_lessons": 1480},
+                {"week": "Week 7", "active": 540, "completed_lessons": 1520}
             ]
-        },
-        "at_risk_learners": [
-            {"id": "C3-4015", "last_login": "4 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"},
-            {"id": "C3-4022", "last_login": "3 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"},
-            {"id": "C3-4051", "last_login": "5 days ago", "engagement": "Very Low", "sentiment": "N/A", "action": "Escalate to Trainer"},
-            {"id": "C3-4088", "last_login": "6 days ago", "engagement": "Very Low", "sentiment": "Negative", "action": "Escalate to Trainer"},
-            {"id": "C3-4102", "last_login": "2 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"}
+        }
+    }
+    
+    data = cohort_data.get(cohort_id, cohort_data[3])
+    
+    return {
+        "cohort_name": cohort_names.get(cohort_id, "Cohort 3 - Other Cohorts"),
+        "cohort_id": cohort_id,
+        "learner_journey": [
+            {"stage": "Recruited", "count": data["recruited"]},
+            {"stage": "Signed Up", "count": data["signed_up"]},
+            {"stage": "Onboarded (Cyber-Safe)", "count": data["onboarded"]},
+            {"stage": "Module 1", "count": data["module1"]},
+            {"stage": "Module 2", "count": data["module2"]},
+            {"stage": "Module 3 (In Progress)", "count": data["module3_in_progress"]}
         ],
-        "content_engagement": [
-            {"module": "Module 1 (Intro)", "engagement": 92, "difficulty": 20, "color": "#10b981"},
-            {"module": "Module 2 (AI Queries)", "engagement": 58, "difficulty": 85, "color": "#ef4444"},
-            {"module": "Module 3 (Cyber)", "engagement": 78, "difficulty": 55, "color": "#f59e0b"}
+        "sentiment_analysis": {
+            "word_cloud": data["sentiment_words"],
+            "sentiment_timeline": data["sentiment_timeline"]
+        },
+        "at_risk_learners": data["at_risk"],
+        "content_engagement": data["content_engagement"],
+        "weekly_performance": data["weekly_performance"],
+        "engagement_heatmap": [
+            {"day": "Monday", "morning": 78, "afternoon": 85, "evening": 65},
+            {"day": "Tuesday", "morning": 82, "afternoon": 88, "evening": 70},
+            {"day": "Wednesday", "morning": 80, "afternoon": 90, "evening": 68},
+            {"day": "Thursday", "morning": 75, "afternoon": 82, "evening": 72},
+            {"day": "Friday", "morning": 70, "afternoon": 75, "evening": 60},
+            {"day": "Saturday", "morning": 45, "afternoon": 55, "evening": 50},
+            {"day": "Sunday", "morning": 40, "afternoon": 48, "evening": 45}
+        ],
+        "trainer_interactions": [
+            {"week": "Week 1", "emails": 25, "calls": 8, "messages": 42},
+            {"week": "Week 2", "emails": 22, "calls": 6, "messages": 38},
+            {"week": "Week 3", "emails": 28, "calls": 10, "messages": 45},
+            {"week": "Week 4", "emails": 30, "calls": 12, "messages": 52},
+            {"week": "Week 5", "emails": 45, "calls": 18, "messages": 68},
+            {"week": "Week 6", "emails": 38, "calls": 15, "messages": 58},
+            {"week": "Week 7", "emails": 32, "calls": 11, "messages": 48}
         ]
     }
 
