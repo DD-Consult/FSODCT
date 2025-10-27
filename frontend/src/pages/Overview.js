@@ -224,7 +224,7 @@ const Overview = () => {
       </div>
 
       {/* Project Milestones */}
-      <Card className="hover-lift">
+      <Card className="hover-lift" data-tour="project-milestones">
         <CardHeader>
           <CardTitle>Project Schedule (16 Weeks)</CardTitle>
         </CardHeader>
