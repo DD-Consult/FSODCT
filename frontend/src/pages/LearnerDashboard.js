@@ -108,15 +108,24 @@ const LearnerDashboard = () => {
               <p className="text-sm text-slate-600">Welcome back, {data?.learner?.name}!</p>
             </div>
           </div>
-          <Button
-            variant="outline"
-            onClick={handleLogout}
-            data-testid="learner-logout-button"
-            className="gap-2"
-          >
-            <LogOut size={18} />
-            Logout
-          </Button>
+          
+          {/* Logo - Right */}
+          <div className="flex items-center gap-3">
+            <img 
+              src="/dd-consulting-logo.png" 
+              alt="DD Consulting" 
+              className="h-10 w-auto opacity-80"
+            />
+            <Button
+              variant="outline"
+              onClick={handleLogout}
+              data-testid="learner-logout-button"
+              className="gap-2"
+            >
+              <LogOut size={18} />
+              Logout
+            </Button>
+          </div>
         </div>
       </header>
 
