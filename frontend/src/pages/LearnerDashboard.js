@@ -7,8 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, BookOpen, Clock, Award, LogOut, CheckCircle2, Lock, PlayCircle, Trophy, Target } from "lucide-react";
-import Joyride from "react-joyride";
-import { useLearnerDashboardTour } from "@/hooks/useDemoTour";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -17,7 +15,6 @@ const LearnerDashboard = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { runTour, steps, handleJoyrideCallback } = useLearnerDashboardTour();
 
   useEffect(() => {
     fetchDashboard();
