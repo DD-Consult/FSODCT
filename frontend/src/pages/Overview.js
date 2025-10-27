@@ -193,7 +193,7 @@ const Overview = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recruitment Funnel */}
-        <Card className="hover-lift">
+        <Card className="hover-lift" data-tour="recruitment-funnel">
           <CardHeader>
             <CardTitle>Learner Recruitment Tracker</CardTitle>
           </CardHeader>
