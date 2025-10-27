@@ -251,7 +251,7 @@ const LearnerRegistration = () => {
         </Card>
 
         <div className="text-center mt-6 text-white text-sm">
-          <p>Secure registration powered by FSO Digital Capability Trial</p>
+          <p>FSO Digital Capability Trial - Empowering Digital Skills</p>
         </div>
       </div>
     </div>
