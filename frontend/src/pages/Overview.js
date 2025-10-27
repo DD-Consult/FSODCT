@@ -213,7 +213,7 @@ const Overview = () => {
         </Card>
 
         {/* AI Sentiment Gauge */}
-        <Card className="hover-lift">
+        <Card className="hover-lift" data-tour="ai-sentiment">
           <CardHeader>
             <CardTitle>Live Learner Sentiment (All Cohorts)</CardTitle>
           </CardHeader>
