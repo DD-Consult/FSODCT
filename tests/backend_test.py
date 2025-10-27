@@ -5,7 +5,9 @@ from datetime import datetime
 class FSO_API_Tester:
     def __init__(self, base_url="https://projectnexus-3.preview.emergentagent.com/api"):
         self.base_url = base_url
-        self.session_token = None
+        self.pmo_session_token = None
+        self.learner_session_token = None
+        self.learner_id = None
         self.tests_run = 0
         self.tests_passed = 0
         self.failed_tests = []
