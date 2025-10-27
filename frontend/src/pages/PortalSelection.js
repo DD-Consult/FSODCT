@@ -7,7 +7,25 @@ const PortalSelection = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center p-4 relative">
+      {/* Logo - Top Left: Darevolution */}
+      <div className="absolute top-6 left-6 z-10">
+        <img 
+          src="/darevolution-logo.png" 
+          alt="Darevolution" 
+          className="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
+        />
+      </div>
+
+      {/* Logo - Top Right: DD Consulting */}
+      <div className="absolute top-6 right-6 z-10">
+        <img 
+          src="/dd-consulting-logo.png" 
+          alt="DD Consulting" 
+          className="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
+        />
+      </div>
+
       <div className="max-w-6xl w-full">
         {/* Header */}
         <div className="text-center mb-12">
