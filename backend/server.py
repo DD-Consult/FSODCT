@@ -553,6 +553,33 @@ async def get_dashboard_overview(current_user: User = Depends(get_current_user))
             {"id": 1, "task": "Review AI/Cyber Content (Module 3)", "due": "2025-10-28", "owner": "Priya N.", "priority": "high"},
             {"id": 2, "task": "Prepare Data for Weekly Huddle", "due": "2025-10-29", "owner": "Priya N.", "priority": "high"},
             {"id": 3, "task": "Sign-off Pilot Comms", "due": "2025-10-27", "owner": "FSO Exec", "priority": "critical"}
+        ],
+        "weekly_trends": [
+            {"week": "Week 1", "active_learners": 832, "engagement": 88, "completion_rate": 92},
+            {"week": "Week 2", "active_learners": 824, "engagement": 86, "completion_rate": 90},
+            {"week": "Week 3", "active_learners": 817, "engagement": 84, "completion_rate": 88},
+            {"week": "Week 4", "active_learners": 804, "engagement": 82, "completion_rate": 86},
+            {"week": "Week 5", "active_learners": 780, "engagement": 75, "completion_rate": 82},
+            {"week": "Week 6", "active_learners": 773, "engagement": 78, "completion_rate": 84},
+            {"week": "Week 7", "active_learners": 765, "engagement": 80, "completion_rate": 85}
+        ],
+        "module_completion_trends": [
+            {"module": "Module 1", "week1": 20, "week2": 45, "week3": 68, "week4": 82, "week5": 90, "week6": 94, "week7": 96},
+            {"module": "Module 2", "week1": 0, "week2": 0, "week3": 15, "week4": 32, "week5": 48, "week6": 62, "week7": 70},
+            {"module": "Module 3", "week1": 0, "week2": 0, "week3": 0, "week4": 0, "week5": 8, "week6": 22, "week7": 35}
+        ],
+        "support_metrics": {
+            "total_tickets": 156,
+            "resolved": 142,
+            "pending": 14,
+            "avg_resolution_time": "4.2 hours",
+            "satisfaction_rate": 92
+        },
+        "content_effectiveness": [
+            {"content_type": "Video Lessons", "effectiveness": 88, "engagement": 92},
+            {"content_type": "Interactive Exercises", "effectiveness": 85, "engagement": 78},
+            {"content_type": "Reading Materials", "effectiveness": 72, "engagement": 65},
+            {"content_type": "Quizzes", "effectiveness": 90, "engagement": 82}
         ]
     }
 
