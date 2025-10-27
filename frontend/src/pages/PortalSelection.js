@@ -56,6 +56,18 @@ const PortalSelection = () => {
                   Access PMO Portal
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
+                <Button 
+                  variant="outline"
+                  className="w-full h-10 mt-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-medium"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/login?demo=pmo");
+                  }}
+                  data-testid="pmo-demo-button"
+                >
+                  <PlayCircle className="mr-2" size={18} />
+                  Try Demo Tour
+                </Button>
               </div>
             </CardContent>
           </Card>
