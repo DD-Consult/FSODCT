@@ -14,12 +14,22 @@ const DashboardLayout = ({ user, setIsAuthenticated }) => {
   const handleLogout = async () => {
     try {
       await axios.post(`${API}/auth/logout`);
-      toast.success("Logged out successfully");
       setIsAuthenticated(false);
-      navigate("/login");
+      toast.success("Logged out successfully");
+      // Force navigate after state update
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 100);
     } catch (error) {
       console.error("Logout error:", error);
-      toast.error("Failed to logout");
+      // Even if API call fails, clear local state
+      setIsAuthenticated(false);
+      toast.info("Logged out");
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 100);
     }
   };
 
