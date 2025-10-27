@@ -22,7 +22,8 @@ const LearnerRegistration = () => {
     name: "",
     email: "",
     phone: "",
-    cohort: ""
+    cohort: "",
+    class_type: ""
   });
   const [loginEmail, setLoginEmail] = useState("");
 
