@@ -5,6 +5,8 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { CheckCircle2, AlertTriangle, XCircle, Clock, TrendingUp } from "lucide-react";
+import Joyride from "react-joyride";
+import { usePMODemoTour } from "@/hooks/useDemoTour";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -12,6 +14,7 @@ const API = `${BACKEND_URL}/api`;
 const Overview = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { runTour, steps, handleJoyrideCallback } = usePMODemoTour();
 
   useEffect(() => {
     fetchData();
