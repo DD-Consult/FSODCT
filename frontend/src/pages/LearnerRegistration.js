@@ -70,20 +70,7 @@ const LearnerRegistration = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-800 to-green-900 flex items-center justify-center p-4">
-      <Joyride
-        steps={steps}
-        run={runTour}
-        continuous
-        showProgress
-        showSkipButton
-        callback={handleJoyrideCallback}
-        styles={{
-          options: {
-            primaryColor: "#16a34a",
-            zIndex: 10000,
-          },
-        }}
-      />
+      <DemoTour steps={steps} isActive={isActive} onComplete={onComplete} />
       
       <div className="w-full max-w-2xl">
         {/* Back Button */}
