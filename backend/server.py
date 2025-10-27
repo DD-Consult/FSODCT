@@ -57,6 +57,7 @@ class LearnerRegistration(BaseModel):
     email: str
     cohort: str  # "VET", "First Nations", "Other"
     phone: Optional[str] = None
+    class_type: str = "Digital"  # "Digital", "Face-to-Face", "Both"
     
 class Learner(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -65,6 +66,7 @@ class Learner(BaseModel):
     email: str
     cohort: str
     phone: Optional[str] = None
+    class_type: str = "Digital"
     enrolled_modules: List[str] = []
     completed_modules: List[str] = []
     current_module: Optional[str] = None
