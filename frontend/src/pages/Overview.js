@@ -285,7 +285,7 @@ const Overview = () => {
         </Card>
 
         {/* My Tasks */}
-        <Card className="hover-lift">
+        <Card className="hover-lift" data-tour="my-tasks">
           <CardHeader>
             <CardTitle>My Action Items</CardTitle>
           </CardHeader>
