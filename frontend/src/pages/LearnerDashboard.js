@@ -198,7 +198,7 @@ const LearnerDashboard = () => {
         </div>
 
         {/* Overall Progress Bar */}
-        <Card className="mb-8">
+        <Card className="mb-8" data-tour="progress-bar">
           <CardHeader>
             <CardTitle>Your Learning Progress</CardTitle>
           </CardHeader>
