@@ -289,6 +289,7 @@ async def register_learner(learner_data: LearnerRegistration):
             email=learner_data.email,
             cohort=learner_data.cohort,
             phone=learner_data.phone,
+            class_type=learner_data.class_type,
             enrolled_modules=["module1", "module2", "module3"],  # Auto-enroll in all modules
             current_module="module1"
         )
