@@ -217,9 +217,11 @@ const CohortAnalytics = () => {
                   const engagementColors = {
                     "Very Low": "text-red-600 font-semibold",
                     "Low": "text-amber-600 font-medium",
+                    "Medium": "text-blue-600 font-medium",
                   };
                   const sentimentColors = {
                     "Negative": "bg-red-100 text-red-800",
+                    "Neutral": "bg-slate-100 text-slate-600",
                     "N/A": "bg-slate-100 text-slate-600",
                   };
                   return (
