@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, GraduationCap, ArrowRight, BarChart3, BookOpen } from "lucide-react";
+import { Users, GraduationCap, ArrowRight, BarChart3, BookOpen, PlayCircle } from "lucide-react";
 
 const PortalSelection = () => {
   const navigate = useNavigate();
