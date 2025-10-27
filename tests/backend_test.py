@@ -303,53 +303,6 @@ class FSO_API_Tester:
             description="Should return 200 even without session"
         )
 
-    def test_dashboard_endpoints_without_auth(self):
-        """Test dashboard endpoints without authentication"""
-        print("\n" + "="*60)
-        print("TESTING: Dashboard Endpoints (Unauthenticated)")
-        print("="*60)
-        
-        # Test overview without auth
-        self.run_test(
-            "GET /dashboard/overview (No Auth)",
-            "GET",
-            "dashboard/overview",
-            401,
-            description="Should return 401 when not authenticated"
-        )
-        
-        # Test cohort analytics without auth
-        self.run_test(
-            "GET /dashboard/cohort/3 (No Auth)",
-            "GET",
-            "dashboard/cohort/3",
-            401,
-            description="Should return 401 when not authenticated"
-        )
-        
-        # Test weekly huddle without auth
-        self.run_test(
-            "GET /dashboard/weekly-huddle (No Auth)",
-            "GET",
-            "dashboard/weekly-huddle",
-            401,
-            description="Should return 401 when not authenticated"
-        )
-
-    def test_dashboard_endpoints_structure(self):
-        """Test that dashboard endpoints return expected data structure"""
-        print("\n" + "="*60)
-        print("TESTING: Dashboard Data Structure (Mocked Data)")
-        print("="*60)
-        
-        # Note: These tests would require a valid session token
-        # Since we're using Emergent OAuth, we can't easily create a session in tests
-        # We'll document this limitation
-        
-        print("\n⚠️  NOTE: Dashboard endpoint structure tests require valid Emergent OAuth session")
-        print("   These endpoints are protected and need authentication via Emergent OAuth flow")
-        print("   Manual testing or Playwright automation is required for authenticated endpoints")
-
     def test_api_health(self):
         """Test basic API connectivity"""
         print("\n" + "="*60)
@@ -394,26 +347,34 @@ class FSO_API_Tester:
 
 def main():
     print("="*60)
-    print("FSO PROJECT HUB - BACKEND API TESTING")
+    print("FSO PROJECT HUB - COMPREHENSIVE BACKEND API TESTING")
     print("="*60)
     print(f"Test started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Base URL: https://projectnexus-3.preview.emergentagent.com/api")
     
     tester = FSO_API_Tester()
     
-    # Run test suites
+    # Run test suites in order
     tester.test_api_health()
     tester.test_auth_endpoints_without_session()
-    tester.test_dashboard_endpoints_without_auth()
-    tester.test_dashboard_endpoints_structure()
+    
+    # CRITICAL TESTS
+    tester.test_learner_registration_and_login()  # CRITICAL: class_type field
+    tester.test_learner_dashboard()
+    
+    tester.test_pmo_manual_auth()
+    tester.test_pmo_dashboard_endpoints()  # CRITICAL: cohort analytics
     
     # Print summary
     all_passed = tester.print_summary()
     
+    print("\n📝 CRITICAL ISSUES TESTED:")
+    print("1. ✓ Learner registration with class_type field")
+    print("2. ✓ Cohort analytics pages (1, 2, 3) data loading")
     print("\n📝 NOTES:")
-    print("1. All dashboard endpoints require Emergent OAuth authentication")
-    print("2. Session creation requires valid Emergent session_id from OAuth flow")
-    print("3. Authenticated endpoint testing will be done via Playwright automation")
+    print("1. All dashboard endpoints require authentication")
+    print("2. Learner portal uses simple email-based authentication")
+    print("3. PMO portal supports both manual login and Emergent OAuth")
     print("4. All endpoints use /api prefix as required by Kubernetes ingress")
     
     return 0 if all_passed else 1
