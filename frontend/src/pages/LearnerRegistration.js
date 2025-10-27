@@ -162,6 +162,24 @@ const LearnerRegistration = () => {
                   </Select>
                 </div>
 
+                <div>
+                  <Label htmlFor="class_type" className="text-slate-700">Class Type *</Label>
+                  <Select 
+                    value={formData.class_type} 
+                    onValueChange={(value) => setFormData({ ...formData, class_type: value })}
+                    required
+                  >
+                    <SelectTrigger className="mt-1" data-testid="class-type-select">
+                      <SelectValue placeholder="Choose your preferred class type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Digital" data-testid="class-digital">Digital Only (Online learning at your own pace)</SelectItem>
+                      <SelectItem value="Face-to-Face" data-testid="class-face-to-face">Face-to-Face Only (In-person classes)</SelectItem>
+                      <SelectItem value="Both" data-testid="class-both">Both (Hybrid - Digital + Face-to-Face)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 <div className="pt-4">
                   <Button
                     type="submit"
