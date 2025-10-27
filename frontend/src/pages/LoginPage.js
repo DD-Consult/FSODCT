@@ -248,7 +248,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
 
           {/* Footer */}
           <div className="mt-6 text-center text-xs text-slate-500">
-            Secure authentication powered by Emergent
+            Secure authentication for FSO Digital Capability Trial
           </div>
         </div>
       </div>
