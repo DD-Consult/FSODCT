@@ -3,8 +3,9 @@ import axios from "axios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
-import { CheckCircle2, AlertTriangle, XCircle, Clock, TrendingUp } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Area, AreaChart } from "recharts";
+import { CheckCircle2, AlertTriangle, XCircle, Clock, TrendingUp, TrendingDown, Users, Target, MessageSquare, FileCheck } from "lucide-react";
 import { DemoTour, usePMODemoTour } from "@/hooks/useDemoTour";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
