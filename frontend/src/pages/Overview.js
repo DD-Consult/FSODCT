@@ -130,6 +130,21 @@ const Overview = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <Joyride
+        steps={steps}
+        run={runTour}
+        continuous
+        showProgress
+        showSkipButton
+        callback={handleJoyrideCallback}
+        styles={{
+          options: {
+            primaryColor: "#3b82f6",
+            zIndex: 10000,
+          },
+        }}
+      />
+      
       {/* Header */}
       <div>
         <h1 className="text-4xl font-bold text-slate-800 mb-2" data-testid="page-title">
