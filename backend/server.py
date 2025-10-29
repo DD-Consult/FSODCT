@@ -566,7 +566,14 @@ async def get_dashboard_overview(current_user: User = Depends(get_current_user))
         "my_tasks": [
             {"id": 1, "task": "Review AI/Cyber Content (Module 3)", "due": "2025-10-28", "owner": "Priya N.", "priority": "high"},
             {"id": 2, "task": "Prepare Data for Weekly Huddle", "due": "2025-10-29", "owner": "Priya N.", "priority": "high"},
-            {"id": 3, "task": "Sign-off Pilot Comms", "due": "2025-10-27", "owner": "FSO Exec", "priority": "critical"}
+            {"id": 3, "task": "Sign-off Pilot Comms", "due": "2025-10-27", "owner": "FSO Exec", "priority": "critical"},
+            {"id": 4, "task": "Module 2 Content Enhancement - Add Explainer Video", "due": "2025-10-30", "owner": "Darevolution", "priority": "high"},
+            {"id": 5, "task": "Review At-Risk Learner Interventions", "due": "2025-10-29", "owner": "DD Consulting", "priority": "high"},
+            {"id": 6, "task": "Quarterly Budget Review Meeting", "due": "2025-11-02", "owner": "FSO Finance", "priority": "medium"},
+            {"id": 7, "task": "Update Learner Progress Report for Stakeholders", "due": "2025-10-31", "owner": "Priya N.", "priority": "medium"},
+            {"id": 8, "task": "Schedule Face-to-Face Class Venues", "due": "2025-11-01", "owner": "FSO Operations", "priority": "high"},
+            {"id": 9, "task": "AI Chatbot Performance Review", "due": "2025-11-03", "owner": "DD Consulting", "priority": "medium"},
+            {"id": 10, "task": "Coordinate Module 3 Pilot Launch", "due": "2025-11-05", "owner": "Darevolution", "priority": "high"}
         ],
         "weekly_trends": [
             {"week": "Week 1", "active_learners": 832, "engagement": 88, "completion_rate": 92},
