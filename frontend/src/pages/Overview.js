@@ -58,9 +58,10 @@ const Overview = () => {
     );
   };
 
-  const SentimentGauge = ({ value }) => {
-    const rotation = (value / 100) * 180 - 90;
-    const color = value >= 70 ? "#10b981" : value >= 50 ? "#f59e0b" : "#ef4444";
+  const SentimentGauge = ({ value = 0 }) => {
+    const safeValue = value || 0;
+    const rotation = (safeValue / 100) * 180 - 90;
+    const color = safeValue >= 70 ? "#10b981" : safeValue >= 50 ? "#f59e0b" : "#ef4444";
 
     return (
       <div className="relative w-64 h-32 mx-auto">
@@ -100,7 +101,7 @@ const Overview = () => {
           />
           {/* Active arc */}
           <path
-            d={`M 20 90 A 80 80 0 ${value > 50 ? 1 : 0} 1 ${100 + 80 * Math.cos((rotation * Math.PI) / 180)} ${90 + 80 * Math.sin((rotation * Math.PI) / 180)}`}
+            d={`M 20 90 A 80 80 0 ${safeValue > 50 ? 1 : 0} 1 ${100 + 80 * Math.cos((rotation * Math.PI) / 180)} ${90 + 80 * Math.sin((rotation * Math.PI) / 180)}`}
             fill="none"
             stroke={color}
             strokeWidth="12"
@@ -120,7 +121,7 @@ const Overview = () => {
         </svg>
         <div className="absolute bottom-0 left-0 right-0 text-center">
           <div className="text-3xl font-bold" style={{ color }}>
-            {value}%
+            {safeValue}%
           </div>
           <div className="text-sm text-slate-600">Positive Sentiment</div>
         </div>
