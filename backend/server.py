@@ -27,6 +27,15 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# Health check endpoint for Railway
+@app.get("/")
+async def health_check():
+    return {"status": "healthy", "service": "FSO Project Hub Backend"}
+
+@app.get("/health")
+async def health():
+    return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
+
 # ============= MODELS =============
 class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
