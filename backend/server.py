@@ -36,6 +36,11 @@ async def health_check():
 async def health():
     return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
 
+# API root endpoint
+@api_router.get("/")
+async def api_root():
+    return {"message": "FSO Project Hub API", "version": "1.0", "status": "operational"}
+
 # ============= MODELS =============
 class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
