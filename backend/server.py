@@ -748,7 +748,14 @@ async def get_cohort_analytics(cohort_id: int, current_user: User = Depends(get_
                 {"id": "C3-4022", "last_login": "3 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"},
                 {"id": "C3-4051", "last_login": "5 days ago", "engagement": "Very Low", "sentiment": "N/A", "action": "Escalate to Trainer"},
                 {"id": "C3-4088", "last_login": "6 days ago", "engagement": "Very Low", "sentiment": "Negative", "action": "Escalate to Trainer"},
-                {"id": "C3-4102", "last_login": "2 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"}
+                {"id": "C3-4102", "last_login": "2 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot Deployed"},
+                {"id": "C3-4127", "last_login": "7 days ago", "engagement": "Very Low", "sentiment": "Negative", "action": "Urgent - Trainer Outreach"},
+                {"id": "C3-4156", "last_login": "4 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Study Group Assigned"},
+                {"id": "C3-4189", "last_login": "3 days ago", "engagement": "Low", "sentiment": "Neutral", "action": "Extended Deadline Granted"},
+                {"id": "C3-4203", "last_login": "5 days ago", "engagement": "Medium", "sentiment": "Negative", "action": "1-on-1 Session Booked"},
+                {"id": "C3-4241", "last_login": "6 days ago", "engagement": "Low", "sentiment": "Negative", "action": "Chatbot + Email Support"},
+                {"id": "C3-4278", "last_login": "4 days ago", "engagement": "Very Low", "sentiment": "Negative", "action": "Escalate to Trainer"},
+                {"id": "C3-4305", "last_login": "8 days ago", "engagement": "Very Low", "sentiment": "N/A", "action": "Critical - Immediate Contact"}
             ],
             "content_engagement": [
                 {"module": "Module 1 (Intro)", "engagement": 92, "difficulty": 20, "color": "#10b981"},
