@@ -245,10 +245,15 @@ const Overview = () => {
         {/* Risk Heatmap */}
         <Card className="hover-lift" data-tour="risk-heatmap">
           <CardHeader>
-            <CardTitle>Active Risk Heatmap</CardTitle>
+            <CardTitle className="flex items-center justify-between">
+              <span>Active Risk Heatmap</span>
+              <Badge className="bg-slate-100 text-slate-700">
+                {data?.risk_heatmap?.length} Active Risks
+              </Badge>
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-96 overflow-y-auto">
               {data?.risk_heatmap?.map((risk, index) => (
                 <div
                   key={index}
@@ -260,11 +265,19 @@ const Overview = () => {
                     className="w-3 h-3 rounded-full flex-shrink-0"
                     style={{ backgroundColor: risk.color }}
                   />
-                  <div className="flex-1">
-                    <p className="font-medium text-sm text-slate-800">Risk #{risk.id}: {risk.risk}</p>
-                    <p className="text-xs text-slate-600">
-                      Likelihood: {risk.likelihood}/5 | Impact: {risk.impact}/5
-                    </p>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm text-slate-800 truncate">Risk #{risk.id}: {risk.risk}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-xs text-slate-600">
+                        L: {risk.likelihood}/5 | I: {risk.impact}/5
+                      </p>
+                      {risk.owner && (
+                        <>
+                          <span className="text-xs text-slate-400">•</span>
+                          <p className="text-xs text-blue-600 font-medium">{risk.owner}</p>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
