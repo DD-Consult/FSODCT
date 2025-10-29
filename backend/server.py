@@ -553,10 +553,24 @@ async def get_dashboard_overview(current_user: User = Depends(get_current_user))
             {"phase": "Phase 5: Evaluation", "status": "Upcoming", "color": "#9ca3af"}
         ],
         "risk_heatmap": [
-            {"id": 1, "risk": "Documentation Delays", "likelihood": 2, "impact": 2, "color": "#10b981"},
-            {"id": 2, "risk": "Content Review Bottleneck", "likelihood": 3, "impact": 2, "color": "#f59e0b"},
-            {"id": 3, "risk": "Technical Integration", "likelihood": 2, "impact": 3, "color": "#f59e0b"},
-            {"id": 17, "risk": "High Learner Churn", "likelihood": 4, "impact": 4, "color": "#ef4444"}
+            {"id": 1, "risk": "Documentation Delays", "likelihood": 2, "impact": 2, "color": "#10b981", "owner": "Darevolution"},
+            {"id": 2, "risk": "Content Review Bottleneck", "likelihood": 3, "impact": 2, "color": "#f59e0b", "owner": "FSO"},
+            {"id": 3, "risk": "Technical Integration Issues", "likelihood": 2, "impact": 3, "color": "#f59e0b", "owner": "DD Consulting"},
+            {"id": 4, "risk": "Trainer Availability - Face-to-Face Classes", "likelihood": 2, "impact": 3, "color": "#f59e0b", "owner": "FSO"},
+            {"id": 5, "risk": "Platform Performance During Peak Hours", "likelihood": 3, "impact": 3, "color": "#f59e0b", "owner": "DD Consulting"},
+            {"id": 6, "risk": "Module 2 Complexity Barrier", "likelihood": 4, "impact": 3, "color": "#ef4444", "owner": "Darevolution"},
+            {"id": 7, "risk": "First Nations Cultural Liaison Delays", "likelihood": 2, "impact": 2, "color": "#10b981", "owner": "FSO"},
+            {"id": 8, "risk": "Budget Overrun - Support Resources", "likelihood": 2, "impact": 4, "color": "#f59e0b", "owner": "FSO Finance"},
+            {"id": 9, "risk": "Learner Device Compatibility Issues", "likelihood": 3, "impact": 2, "color": "#f59e0b", "owner": "DD Consulting"},
+            {"id": 10, "risk": "Seasonal Drop-off - Holiday Period", "likelihood": 3, "impact": 3, "color": "#f59e0b", "owner": "All"},
+            {"id": 11, "risk": "Content Translation Delays", "likelihood": 2, "impact": 2, "color": "#10b981", "owner": "Darevolution"},
+            {"id": 12, "risk": "AI Chatbot Response Accuracy", "likelihood": 2, "impact": 2, "color": "#10b981", "owner": "DD Consulting"},
+            {"id": 13, "risk": "Assessment Cheating/Integrity", "likelihood": 2, "impact": 3, "color": "#f59e0b", "owner": "FSO"},
+            {"id": 14, "risk": "Stakeholder Engagement Fatigue", "likelihood": 3, "impact": 3, "color": "#f59e0b", "owner": "FSO"},
+            {"id": 15, "risk": "Data Privacy Compliance", "likelihood": 1, "impact": 5, "color": "#f59e0b", "owner": "DD Consulting"},
+            {"id": 16, "risk": "Third-Party Tool Dependencies", "likelihood": 2, "impact": 3, "color": "#f59e0b", "owner": "DD Consulting"},
+            {"id": 17, "risk": "High Learner Churn - Cohort 3", "likelihood": 4, "impact": 4, "color": "#ef4444", "owner": "All"},
+            {"id": 18, "risk": "Certification Accreditation Timeline", "likelihood": 3, "impact": 4, "color": "#ef4444", "owner": "FSO"}
         ],
         "ai_sentiment": {
             "overall": 78,
