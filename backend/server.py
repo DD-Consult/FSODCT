@@ -700,7 +700,9 @@ async def get_cohort_analytics(cohort_id: int, current_user: User = Depends(get_
                 {"week": "Week 7", "sentiment": 90}
             ],
             "at_risk": [
-                {"id": "C2-3012", "last_login": "3 days ago", "engagement": "Medium", "sentiment": "Neutral", "action": "Cultural Liaison Assigned"}
+                {"id": "C2-3012", "last_login": "3 days ago", "engagement": "Medium", "sentiment": "Neutral", "action": "Cultural Liaison Assigned"},
+                {"id": "C2-3028", "last_login": "5 days ago", "engagement": "Low", "sentiment": "Neutral", "action": "Elder Support Engaged"},
+                {"id": "C2-3051", "last_login": "4 days ago", "engagement": "Low", "sentiment": "Neutral", "action": "Community Outreach"}
             ],
             "content_engagement": [
                 {"module": "Module 1 (Intro)", "engagement": 96, "difficulty": 22, "color": "#10b981"},
