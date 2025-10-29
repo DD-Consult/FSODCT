@@ -842,19 +842,42 @@ async def get_weekly_huddle_data(current_user: User = Depends(get_current_user))
                 "action": "DD Consulting to deploy a proactive, specialized AI chatbot to all learners currently 'At-Risk' in this module.",
                 "owner": "DD Consulting",
                 "due": "Immediate"
+            },
+            {
+                "id": 3,
+                "category": "Content",
+                "action": "Create supplementary practice exercises for Module 2 AI query formulation.",
+                "owner": "Darevolution",
+                "due": "Next Week"
+            },
+            {
+                "id": 4,
+                "category": "Support",
+                "action": "Schedule optional live Q&A sessions for Module 2 learners (face-to-face cohorts).",
+                "owner": "FSO Operations",
+                "due": "Next Week"
             }
         ],
         "decisions": [
-            {"id": 1, "status": "Approved", "decision": "Action #1 (Darevolution) - Due EOW"},
-            {"id": 2, "status": "Approved", "decision": "Action #2 (DD Consulting) - Deployed immediately"},
-            {"id": 3, "status": "New Action", "decision": "FSO to review comms for new video"}
+            {"id": 1, "status": "Approved", "decision": "Action #1 (Darevolution) - Due EOW", "date": "2025-10-27"},
+            {"id": 2, "status": "Approved", "decision": "Action #2 (DD Consulting) - Deployed immediately", "date": "2025-10-27"},
+            {"id": 3, "status": "New Action", "decision": "FSO to review comms for new video", "date": "2025-10-29"},
+            {"id": 4, "status": "Approved", "decision": "Increase support team hours for Week 8", "date": "2025-10-28"},
+            {"id": 5, "status": "Under Review", "decision": "Extend Module 2 deadline by 3 days for at-risk learners", "date": "2025-10-29"},
+            {"id": 6, "status": "Approved", "decision": "Budget allocation for additional trainer hours approved", "date": "2025-10-28"}
         ],
         "metrics": {
             "total_learners": 850,
             "active_learners": 765,
             "at_risk": 42,
             "completion_rate": 89
-        }
+        },
+        "weekly_highlights": [
+            {"category": "Success", "highlight": "Cohort 2 (First Nations) showing 96% engagement - highest across all cohorts", "impact": "positive"},
+            {"category": "Challenge", "highlight": "Module 2 continues to show difficulty spike - 30 learners dropped off this week", "impact": "negative"},
+            {"category": "Action", "highlight": "Deployed specialized AI chatbot to 12 at-risk learners - early results positive", "impact": "positive"},
+            {"category": "Milestone", "highlight": "850 total learners recruited - exceeding original target by 13%", "impact": "positive"}
+        ]
     }
 
 # Include the router in the main app
