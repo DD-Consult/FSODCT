@@ -176,6 +176,7 @@ const WeeklyHuddle = () => {
               const statusConfig = {
                 "Approved": { color: "bg-green-100 text-green-800", icon: CheckCircle2 },
                 "New Action": { color: "bg-blue-100 text-blue-800", icon: Clock },
+                "Under Review": { color: "bg-amber-100 text-amber-800", icon: AlertCircle },
               };
               const config = statusConfig[decision.status] || statusConfig["Approved"];
               const Icon = config.icon;
@@ -189,6 +190,9 @@ const WeeklyHuddle = () => {
                   <Icon className="text-green-600 flex-shrink-0" size={20} />
                   <div className="flex-1">
                     <p className="text-slate-800 font-medium">{decision.decision}</p>
+                    {decision.date && (
+                      <p className="text-xs text-slate-500 mt-1">Logged: {decision.date}</p>
+                    )}
                   </div>
                   <Badge className={config.color}>{decision.status}</Badge>
                 </div>
@@ -197,6 +201,48 @@ const WeeklyHuddle = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Weekly Highlights */}
+      {data?.weekly_highlights && (
+        <Card className="hover-lift border-2 border-blue-200">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TrendingUp size={20} className="text-blue-600" />
+              Week 7 Highlights
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {data.weekly_highlights.map((highlight, index) => {
+                const impactColors = {
+                  positive: "border-green-200 bg-green-50",
+                  negative: "border-red-200 bg-red-50",
+                };
+                const categoryColors = {
+                  Success: "bg-green-600",
+                  Challenge: "bg-red-600",
+                  Action: "bg-blue-600",
+                  Milestone: "bg-purple-600",
+                };
+                
+                return (
+                  <div
+                    key={index}
+                    className={`p-4 rounded-lg border-2 ${impactColors[highlight.impact]} transition-all hover:shadow-md`}
+                  >
+                    <Badge className={`${categoryColors[highlight.category]} text-white mb-2`}>
+                      {highlight.category}
+                    </Badge>
+                    <p className="text-sm text-slate-700 leading-relaxed">
+                      {highlight.highlight}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Footer Note */}
       <div className="text-center py-6 border-t border-slate-200">
